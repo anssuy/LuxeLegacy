@@ -1,0 +1,75 @@
+﻿@model LuxeLegacy.Models.Cart
+
+<style>
+    .flex-row > * {
+        margin: 10px;
+    }
+</style>
+
+<h2>Your Shopping Cart</h2>
+
+@if (Model.CartItems != null && Model.CartItems.Any())
+{
+    <button type="submit" class=" js-clear btn btn-dark">CLEAR CART</button>
+    <table class="table" id="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td><img src="@item.Product.ImageUrl" width="50" height="50" /> @item.Product.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price.ToString("C")</td>
+                    <td>@item.TotalPrice.ToString("C")</td>
+                    <td>
+                        @using (Html.BeginForm("RemoveFromCart", "Carts", FormMethod.Post))
+                        {
+                            @Html.Hidden("productId", item.ProductId)
+                            <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 60px; display: inline;" />
+                            <button type="submit" class="btn btn-dark">Remove</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex flex-row flex-nowrap">
+        <h3>Total: @Model.TotalAmount.ToString("C")</h3>
+        @Html.ActionLink("Checkout", "Checkout", "Carts", htmlAttributes: new { @class = "btn btn-success" })
+    </div>
+
+}
+else
+{
+    <p>Your cart is empty.</p>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-clear").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to clear the cart?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            method: "GET",
+                            url: "/Carts/ClearCart/",
+                            success: function () { window.location.reload() }
+                        });
+                    }
+                })
+            });
+        });
+    </script>
+}
+
+

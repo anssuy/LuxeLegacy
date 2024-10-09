@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LuxeLegacy.Models.Product>
+@{
+    ViewBag.Title = "Rings";
+}
+
+<style>
+    .flex-container {
+        padding-top: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-evenly
+    }
+
+        .flex-container > a {
+            flex: 0 0 25%;
+            font-size: 20px;
+            text-decoration: none;
+            color: #2f3027
+        }
+
+    .image-container {
+        box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    .images {
+        display: block;
+        transition: .3s ease-in-out;
+        width: 300px;
+        height: 300px;
+        object-fit: cover
+    }
+
+        .images:hover {
+            transform: scale(1.4);
+        }
+</style>
+
+<div class="flex-container">
+    @foreach (var item in Model)
+    {
+        <a href=@Url.Action("Details", new { id=item.ProductId })>
+            <div>
+                <div class="image-container">
+                    <img class="images" src=@item.ImageUrl width="300" />
+                </div>
+                <br />
+                @item.Name
+                <br />
+                @item.Price$
+            </div>
+        </a>
+    }
+</div>
+

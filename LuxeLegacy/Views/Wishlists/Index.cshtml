@@ -1,0 +1,43 @@
+﻿@model LuxeLegacy.Models.Wishlist
+
+<h2>Your Wishlist</h2>
+
+@if (Model.WishlistItems.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WishlistItems)
+            {
+                <tr>
+                    <td> <img src="@item.Product.ImageUrl" width="50" height="50" /> @item.Product.Name</td>
+                    <td>@item.Product.Price.ToString("C")</td>
+                    <td>
+                        <button class="btn btn-dark" onclick="remove(@item.ProductId)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Your wishlist is empty.</p>
+}
+
+<script>
+    function remove(productId) {
+        $.ajax({
+            url: '@Url.Action("RemoveFromWishlist", "Wishlists")',
+            type: 'POST',
+            data: { productId: productId },
+            success: function () { window.location.reload() }
+            })
+            }
+</script>

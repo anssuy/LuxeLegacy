@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="home">
+    <p class="text-center centered centered-text">
+        Discover timeless elegance with our exclusive collection<br/> of luxurious gold jewelry,
+        crafted to perfection.
+    </p>
+    <a class="centered button btn-outline-light" style="margin-top:52px" href="#collection_section">SHOP NOW</a>
+
+    <img src="~/AppImages/homepage.jpeg" />
+</div>
+
+<section class="text-center" style="padding: 20px; font-size: 30px; font-weight:500" id="collection_section">Collections</section>
+
+<div class="flex-container" id="home_section">
+    <div>
+        <div class="collections">
+            <a class="btn btn-outline-light"href="/Products/Necklaces">NECKLACES</a>
+        </div>
+        <img src="~/AppImages/homepage_necklaces.png" />
+    </div>
+    <div>
+        <div class="collections">
+            <a class="btn btn-outline-light" href="/Products/Rings">RINGS</a>
+        </div>
+        <img src="~/AppImages/homepage_rings.png" />
+    </div>
+    <div>
+        <div class="collections">
+            <a class="btn btn-outline-light" href="/Products/Bracelets">BRACELETS</a>
+        </div>
+        <img src="~/AppImages/homepage_bracelets.png" />
+    </div>
+    <div>
+        <div class="collections">
+            <a class="btn btn-outline-light" href="/Products/Earrings">EARRINGS</a>
+        </div>
+        <img src="~/AppImages/homepage_earrings.png" />
+    </div>
+</div>
+<div class="flex-container2" style="padding-top: 50px">
+    <h2>Commitment to Quality and Trust</h2>
+    <h2>Our Mission</h2>
+</div>
+<div class="flex-container2" style="padding: 5px">
+    <p>
+        At our shop, are dedicated to delivering superior quality, authenticity,
+        and exceptional service. <br/> We carefully select and craft each piece
+        to meet the highest standards, <br /> ensuring that every item is ethically sourced
+        and beautifully designed.
+    </p>
+    <p>
+        Our mission is to provide exceptional gold jewelry that combines quality 
+        and timeless design. <br/> We are committed to delivering a seamless online shopping experience <br/>
+        with a focus on customer satisfaction, transparency, and lasting value.
+    </p>
+</div>
+
+
+
+<style>
+    .home {
+        margin-top: -15px;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+    }
+
+        .home > img {
+            width: 100%;
+            transform: scaleY(1);
+        }
+
+    .centered {
+        color: black;
+        font-size: 130%;
+        font-weight: 500;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+
+    .centered-text {
+        padding-bottom: 20px;
+        color: black;
+        text-shadow: 2px 2px 5px #fbf4e1;
+    }
+
+    .button {
+        padding: 5px 15px;
+        color: black;
+        background-color: rgb(201, 201, 201);
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+        .button:hover, .button:visited:active {
+            color: rgb(102, 84, 27)
+        }
+
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-evenly;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+    }
+
+        .flex-container > img {
+            flex: 0 0 25%;
+            width: 100%;
+            transform: scaleY(1)
+        }
+
+        .flex-container > div {
+            flex: 0 0 25%
+        }
+
+            .flex-container > div > img {
+                width: 100%;
+                transform: scaleY(1)
+            }
+
+    .flex-container2 {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-evenly;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+    }
+
+        .flex-container2 > p , h2 {
+            flex: 0 0 50%;
+            text-align: center;
+        }
+
+    .flex-container > div > a, .collections{
+        text-align: center;
+        line-height: 384px;
+        position: absolute;
+        width: 384px;
+        z-index: 1;
+    }
+
+    .collections > a {
+        text-decoration: none;
+        font-size: 25px;
+    }
+</style>

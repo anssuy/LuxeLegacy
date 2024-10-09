@@ -1,0 +1,127 @@
+﻿@model LuxeLegacy.Models.ProductDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-evenly;
+        font-optical-sizing: auto;
+        font-style: normal;
+    }
+
+        .flex-container > div {
+            flex: 0 0 50%
+        }
+
+    .btn:hover {
+        border: 1px solid black;
+    }
+</style>
+
+<div class="flex-container">
+    <div>
+        <dd>
+            <img src="@Model.Product.ImageUrl" width="600" />
+        </dd>
+    </div>
+    <div>
+        <div class="dl-horizontal">
+            <dt style="font-size: 35px">
+                @Html.DisplayFor(model => model.Product.Name)
+            </dt>
+            <dd style="font-size: 20px">
+                @Html.DisplayNameFor(model => model.Product.Price)
+                @Html.DisplayFor(model => model.Product.Price)$
+            </dd>
+            <button id="wishlist-button" class="btn btn-toolbar fa fa-heart" data-product-id="@Model.Product.ProductId" onclick="toggleWishlist(@Model.Product.ProductId)">
+                @if (Model.IsInWishlist)
+                {
+                    <text>Remove from Wishlist</text>
+                }
+                else
+                {
+                    <text> Add to Wishlist</text>
+                }
+            </button>
+            @using (Html.BeginForm("AddToCart", "Carts", FormMethod.Post))
+            {
+                @Html.Hidden("productId", Model.Product.ProductId)
+                <input type="number" name="quantity" value="1" min="1" class="form-control" style="width: 100px; margin: 8px; display: inline;" />
+                <button type="submit" class="btn btn-dark" style="margin-bottom: 5px">ADD TO CART</button>
+            }
+            <dd style="font-size: 20px; padding-top: 10px">
+                @Html.DisplayFor(model => model.Product.Description)
+            </dd>
+            <dd style="font-size: 20px; border-top: dashed 1px">
+                <details>
+                    <summary>Material</summary>
+                    @Html.DisplayFor(model => model.Product.Material)
+                </details>
+            </dd>
+            <dd style="font-size: 20px; border-top:dashed 1px">
+                <details>
+                    <summary>Size</summary>
+                    @Html.DisplayFor(model => model.Product.Size)
+                </details>
+            </dd>
+
+        </div>
+    </div>
+</div>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Product.ProductId }) |
+        @Html.ActionLink("See all products", "Index")
+    </p>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+    function toggleWishlist(productId) {
+    var button = document.getElementById('wishlist-button');
+
+    if (button.innerHTML.trim() === 'Add to Wishlist') {
+        // Call AddToWishlist action via AJAX
+        $.ajax({
+            url: '@Url.Action("AddToWishlist", "Wishlists")',
+            type: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                if (response.success) {
+                    button.innerHTML = 'Remove from Wishlist';
+                }
+            }
+        });
+    } else {
+        // Call RemoveFromWishlist action via AJAX
+        $.ajax({
+            url: '@Url.Action("RemoveFromWishlist", "Wishlists")',
+            type: 'POST',
+            data: { productId: productId },
+            success: function (response) {
+                if (response.success) {
+                    button.innerHTML = 'Add to Wishlist';
+                }
+            }
+        });
+    }
+}
+
+    </script>
+}
+else
+{
+    <script>
+        function toggleWishlist(productId) {
+            window.location.href = "/Account/Login";
+        }
+    </script>
+}
