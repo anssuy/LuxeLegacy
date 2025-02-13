@@ -242,9 +242,12 @@
     <Content Include="AppImages\homepage_earrings.png" />
     <Content Include="AppImages\homepage_necklaces.png" />
     <Content Include="AppImages\homepage_rings.png" />
-    <Content Include="assets\sc1.png" />
-    <Content Include="assets\sc2.png" />
-    <Content Include="assets\sc3.png" />
+    <Content Include="assets\home.png" />
+    <Content Include="assets\home_2.png" />
+    <Content Include="assets\product.png" />
+    <Content Include="assets\products.png" />
+    <Content Include="assets\shopping-cart.png" />
+    <Content Include="assets\wishlist.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
